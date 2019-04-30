@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Object Recognition System</title>
+        <link rel="stylesheet" href="bootstrap.css">
+        <script src="jquery.js"></script>
+
+        <script type="text/javascript" src="/eel.js"></script>
+        <script>
+        $(function(){
+
+
+                    $("#btn_add").click(function(){
+                        if($('#inp').val()!='')
+                          {eel.handleinput($("#inp").val());
+                          }
+                        else
+                        {
+                            info("name cant be NULL");
+                        }  
+                        $('#inp').val('');
+                    });
+
+                    $("#btn_detect").click(function()
+                    {
+                        eel.detect_faces();
+
+                    })
+
+                    $("#btn_train").click(function()
+                    {
+                        eel.train_images();
+
+                    })
+
+
+
+
+        });
+        </script>
+    </head>
+
+    <body>
+        <div class="jumbotron" align="center">
+             <div>
+                   
+            <input type='text' class="form-control input-lg" id='inp' placeholder='Write Your Name '><br>
+            <input type='button' id='btn_add' class='btn btn-primary' value='Add your FACE'>
+            <input type='button' id='btn_train' class='btn btn-warning' value='Train Images'>
+            <input type="button" id="btn_detect" class="btn btn-success" value="Detect faces"><br><br>
+            <div style="display:none" class="loader" align="center"  id='mSpinner'></div>
+            <img src="tick_green.png" style="display:none" id = 'mAddTick'width="100px"/>
+            <p id="uName" style="font-size:30px; text-align:center"></p><br>
+        </div>
+        </div>
+    </body>
+<script>
+                    eel.expose(detected_name);
+                    function detected_name(x) {
+                    console.log("Hello from " + x);
+                    document.getElementById('uName').innerHTML='Detected person is :'+x;
+
+                    }
+
+                    eel.expose(info);
+                    function info(x) 
+                    {
+                    document.getElementById('uName').innerHTML=x;
+                    }
+
+                    eel.expose(mSpinner);       
+                    function mSpinner() {
+                    var x = document.getElementById("mSpinner");
+                    if (x.style.display === "block") {
+                        x.style.display = "none";
+                    } else {
+                        x.style.display = "block";
+                    }
+                    }
+
+                    eel.expose(mAddTick);
+                    function mAddTick()
+                    {
+                    var x = document.getElementById("mAddTick");
+                    if (x.style.display === "block") {
+                        x.style.display = "none";
+                    } else {
+                        x.style.display = "block";
+                    }                    }
+ 
+
+
+</script>
+
+
+<style>
+    .loader {
+  border: 10px solid #f3f3f3; /* Light grey */
+  border-top: 10px solid #3498db; /* Blue */
+  border-bottom: 10px solid #3498db;
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+    </style>
+</html>
+
+ 
